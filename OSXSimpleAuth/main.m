@@ -16,6 +16,16 @@ int main(int argc, const char * argv[])
         // insert code here...
         NSLog(@"Hello, World!");
         
+        // Create authorization reference
+        AuthorizationRef authorizationRef;
+        OSStatus status;
+        status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &authorizationRef);
+        
+        // Run the tool using the authorization reference
+        char *tool = "/Users/maojie/Documents/XcodeProjects/ShowEUID/DerivedData/ShowEUID/Build/Products/Debug/ShowEUID.app/Contents/MacOS/ShowEUID.app";
+        char *args[] = { NULL };
+        FILE *pipe = NULL;
+        status = AuthorizationExecuteWithPrivileges(authorizationRef, tool, kAuthorizationFlagDefaults, args, &pipe);
     }
     return 0;
 }
